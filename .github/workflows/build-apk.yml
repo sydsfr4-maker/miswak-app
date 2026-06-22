@@ -1,1 +1,63 @@
 
+name: Build Miswak APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # يسمح بتشغيل يدوي من زر بـ GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # ١. تحميل الكود
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # ٢. إعداد Java 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # ٣. إعداد Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # ٤. تثبيت Capacitor والمكتبات
+      - name: Install dependencies
+        run: npm install
+
+      # ٥. مزامنة Capacitor
+      - name: Sync Capacitor
+        run: npx cap sync android
+
+      # ٦. إعطاء صلاحيات Gradle
+      - name: Make gradlew executable
+        working-directory: android
+        run: chmod +x gradlew
+
+      # ٧. بناء APK (debug - بدون توقيع، للتجربة)
+      - name: Build Debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug --no-daemon
+
+      # ٨. رفع APK كـ artifact قابل للتحميل
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: miswak-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
+
+      # ٩. (اختياري) بناء Release APK موقّع — يتفعّل لو أضفت مفتاح توقيع
+      # - name: Build Release APK
+      #   working-directory: android
+      #   run: ./gradlew assembleRelease
+      #   env:
+      #     KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
