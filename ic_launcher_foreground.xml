@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- خلفية خضراء -->
+    <path
+        android:fillColor="#145214"
+        android:pathData="M0,0h108v108h-108z" />
+    <!-- ورقة نبات مبسطة تمثل مسواك -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,20 C54,20 30,35 30,58 C30,75 40,85 54,88 C68,85 78,75 78,58 C78,35 54,20 54,20Z"
+        android:strokeColor="#a5d6a7"
+        android:strokeWidth="1"/>
+    <!-- خط وسطي للورقة -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,25 L54,83"
+        android:strokeColor="#a5d6a7"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"/>
+    <!-- عروق الورقة -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,45 Q42,50 38,58"
+        android:strokeColor="#a5d6a7"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"/>
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,45 Q66,50 70,58"
+        android:strokeColor="#a5d6a7"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"/>
+</vector>
